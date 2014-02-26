@@ -49,10 +49,10 @@ public class drawingBoard extends JComponent
 		   {
 			   	imageUrl = new URL(Monopoly_LINK);
 			   	monopolyImage = ImageIO.read(imageUrl);
-			   	catImage = ImageIO.read(new File("C:\\Program Files\\eclipse\\Monopoly2\\src\\CatPiece.jpg"));
-			   	hatImage = ImageIO.read(new File("C:\\Program Files\\eclipse\\Monopoly2\\src\\Hat.png"));
-			   	ironImage = ImageIO.read(new File("C:\\Program Files\\eclipse\\Monopoly2\\src\\Iron.jpg"));
-			   	shoeImage = ImageIO.read(new File("C:\\Program Files\\eclipse\\Monopoly2\\src\\Shoe.jpg"));
+			   	catImage = ImageIO.read(new File("C:\\CatPiece.jpg"));
+			   	hatImage = ImageIO.read(new File("C:\\Hat.png"));
+			   	ironImage = ImageIO.read(new File("C:\\Iron.jpg"));
+			   	shoeImage = ImageIO.read(new File("C:\\Shoe.jpg"));
 		   } 
 		   catch (MalformedURLException e) 
 		   {

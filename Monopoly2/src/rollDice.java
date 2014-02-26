@@ -28,12 +28,13 @@ public class rollDice extends JPanel
 	private ActionListener listener;
 	
 	//Holds each player's new position.
-	public int position;
+	public int position_P1;
 	public int position_P2;
 	public int position_P3;
 	public int position_P4;
     public int die1;
 	public int die2;
+	
 	//Tracking which player is moving.
 	private int tracker;
 	private int player;
@@ -75,7 +76,7 @@ public class rollDice extends JPanel
 	protected void setArray () throws IOException 
 	   {
 			// Open the file
-	       	FileInputStream fstream = new FileInputStream("C:\\Program Files\\eclipse\\Monopoly2\\src\\position");
+	       	FileInputStream fstream = new FileInputStream("C:\\position.txt");
 	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	       	String line;
 	       	
@@ -126,12 +127,27 @@ public class rollDice extends JPanel
 		{
 			//Player and tracker updated for the next players roll.
 			player = tracker;
-			tracker = tracker + 1;
-			position = position + die1 + die2;
-			//If the player's position extends past the board locations, set the true location.
-			if (position > 39)
+			if (die1 == die2)
+				location.doubles++;
+			else
 			{
-				position = position - 39;
+				tracker = tracker + 1;
+				location.doubles = 0;
+			}
+
+			if (location.doubles == 3)
+			{
+				position_P1 = 10;
+				location.P1_inJail = true;
+				location.doubles = 0;
+				tracker = tracker + 1;
+			}
+			else
+				position_P1 = position_P1 + die1 + die2;
+			//If the player's position extends past the board locations, set the true location.
+			if (position_P1 > 39)
+			{
+				position_P1 = position_P1 - 40;
 				
 			}
 		}
@@ -140,12 +156,27 @@ public class rollDice extends JPanel
 		{
 			//Player and tracker updated for the next players roll.
 			player = tracker;
-			tracker = tracker + 1;
-			position_P2 = position_P2 + die1 + die2;
+			if (die1 == die2)
+				location.doubles++;
+			else
+			{
+				tracker = tracker + 1;
+				location.doubles = 0;
+			}
+
+			if (location.doubles == 3)
+			{
+				position_P2 = 10;
+				location.P2_inJail = true;
+				location.doubles = 0;
+				tracker = tracker + 1;
+			}
+			else
+				position_P2 = position_P2 + die1 + die2;
 			//If the player's position extends past the board locations, set the true location.
 			if (position_P2 > 39)
 			{
-				position_P2 = position_P2 - 39;
+				position_P2 = position_P2 - 40;
 				
 			}
 		}
@@ -154,12 +185,27 @@ public class rollDice extends JPanel
 		{
 			//Player and tracker updated for the next players roll.
 			player = tracker;
-			tracker = tracker + 1;
-			position_P3 = position_P3 + die1 + die2;
+			if (die1 == die2)
+				location.doubles++;
+			else
+			{
+				tracker = tracker + 1;
+				location.doubles = 0;
+			}
+			
+			if (location.doubles == 3)
+			{
+				position_P3 = 10;
+				location.P3_inJail = true;
+				location.doubles = 0;
+				tracker = tracker + 1;
+			}
+			else
+				position_P3 = position_P3 + die1 + die2;
 			//If the player's position extends past the board locations, set the true location.
 			if (position_P3 > 39)
 			{
-				position_P3 = position_P3 - 39;
+				position_P3 = position_P3 - 40;
 				
 			}
 		}
@@ -167,13 +213,28 @@ public class rollDice extends JPanel
 		else
 		{
 			//Player and tracker updated for the next players roll.
-			tracker = 1;
+			if (die1 == die2)
+				location.doubles++;
+			else
+			{
+				tracker = 1;
+				location.doubles = 0;
+			}
 			player = 0;
-			position_P4 = position_P4 + die1 + die2;
+			
+			if (location.doubles == 3)
+			{
+				position_P4 = 10;
+				location.P4_inJail = true;
+				location.doubles = 0;
+				tracker = 1;
+			}
+			else
+				position_P4 = position_P4 + die1 + die2;
 			//If the player's position extends past the board locations, set the true location.
 			if (position_P4 > 39)
 			{
-				position_P4 = position_P4 - 39;
+				position_P4 = position_P4 - 40;
 				
 			}
 		}
@@ -193,8 +254,8 @@ public class rollDice extends JPanel
 			getMoves();
 			if (player == 1)
 			{
-				component.appendXY(positionArray[position].xCoordinate, positionArray[position].yCoordinate, player);
-				location.setLocation(position, player);
+				component.appendXY(positionArray[position_P1].xCoordinate, positionArray[position_P1].yCoordinate, player);
+				location.setLocation(position_P1, player);
 			}
 			else if (player == 2)
 			{
