@@ -1,4 +1,4 @@
-//Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
+//Brian Hatcher Gary Donovich Jacob Antoine
 
 import java.io.IOException;
 
