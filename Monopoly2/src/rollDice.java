@@ -9,10 +9,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import jtesting.Player;
 
@@ -27,14 +24,14 @@ public class rollDice extends JPanel
 	private JTextField textField;
 	private ActionListener listener;
 	
-    public int die1;
-	public int die2;
+    private int die1, die2;
 	
 	//Tracking which player is moving.
 	private int tracker, playerNum;
-	String [] parts;
+	
 	drawingBoard component = new drawingBoard();
-	boardPosition [] positionArray = new boardPosition [40];        //Property array of coordinates
+	boardPosition boardSpaces = new boardPosition(); 
+	
 	Player [] player = new Player [4];
 	
 	//Makes the dice panel and sets the roll to player one on intialization
@@ -45,9 +42,9 @@ public class rollDice extends JPanel
 		tracker = 0;
 		playerNum = 0;
 		
+		boardSpaces.setArray();
 		createPlayers();
 		createDicePanel();
-		setArray();
 	}
 	
 	public void createPlayers()
@@ -55,7 +52,6 @@ public class rollDice extends JPanel
 		for (int x = 0; x < 4; x++)
 		{
 			player[x] = new Player(x);
-			
 		}
 	}
 	
@@ -77,40 +73,7 @@ public class rollDice extends JPanel
 	
 	//Makes the array of property coordinates to move the image to
 	
-	protected void setArray () throws IOException 
-	   {
-			// Open the file
-	       	FileInputStream fstream = new FileInputStream("C:\\position.txt");
-	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-	       	String line;
-	       	
-		   for(int i = 0; i < 40; i++)
-	        {
-	        	
-
-	        	//Read File Line By Line
-	        	if ((line = br.readLine()) == null)
-	        	{
-	        		System.out.println ("The File Did not Open");
-	        		break;
-	        	}
-	        	else
-	        	{
-	        		parts = line.split("\\|");
-	        	}
-	        	
-	        	positionArray[i] = new boardPosition();
-	        	positionArray[i].setInfo(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]), Integer.parseInt(parts[2]));
-	        	
-	        	//Close the input stream
-	        	if (i == 39)
-	        	{
-	        		br.close();
-	        	}
-
-	        	
-	        }
-	   }
+	
     
     /**
      * This rolls the dice.
@@ -118,8 +81,8 @@ public class rollDice extends JPanel
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1 =6; //randomGen.nextInt(6) + 1;
-		die2 =6; //randomGen.nextInt(6) + 1;
+		die1 = randomGen.nextInt(6) + 1;
+		die2 = randomGen.nextInt(6) + 1;
 		
 		textField.setText(die1 + " , " + die2);
 		
@@ -155,14 +118,19 @@ public class rollDice extends JPanel
 			else
 				tracker = tracker + 1;
 		}
-		else
-			player[playerNum].location = player[playerNum].location + die1 + die2;
+		else	
+			player[playerNum].location = player[playerNum].location + die1 + die2;					
+		
+		
 		//If the player's position extends past the board locations, set the true location.
 		if (player[playerNum].location > 39)
 		{
+			player[playerNum].addCash(200);
 			player[playerNum].location = player[playerNum].location - 40;
 				
 		}
+		
+		//boardPosition.checkLocation(player[playerNum].location);
 	}
 		
     
@@ -177,7 +145,7 @@ public class rollDice extends JPanel
 		{
 			getMoves();
 			
-			component.appendXY(positionArray[(player[playerNum].location)].xCoordinate, positionArray[(player[playerNum].location)].yCoordinate, playerNum);
+			component.appendXY(boardSpaces.positionArray[(player[playerNum].location)].xCoordinate, boardSpaces.positionArray[(player[playerNum].location)].yCoordinate, playerNum);
 			player[playerNum].setLocation((player[playerNum].location), playerNum);
 			
 		}
