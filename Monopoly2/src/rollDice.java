@@ -81,8 +81,8 @@ public class rollDice extends JPanel
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1 = randomGen.nextInt(6) + 1;
-		die2 = randomGen.nextInt(6) + 1;
+		die1 =1;   //randomGen.nextInt(6) + 1;
+		die2 = 3;  //randomGen.nextInt(6) + 1;
 		
 		textField.setText(die1 + " , " + die2);
 		
@@ -130,7 +130,8 @@ public class rollDice extends JPanel
 				
 		}
 		
-		//boardPosition.checkLocation(player[playerNum].location);
+		boardSpaces.checkLocation(player[playerNum].location);
+		//boardSpaces.setVisible(true);
 	}
 		
     
