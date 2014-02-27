@@ -27,32 +27,36 @@ public class rollDice extends JPanel
 	private JTextField textField;
 	private ActionListener listener;
 	
-	//Holds each player's new position.
-	public int position_P1;
-	public int position_P2;
-	public int position_P3;
-	public int position_P4;
     public int die1;
 	public int die2;
 	
 	//Tracking which player is moving.
-	private int tracker;
-	private int player;
+	private int tracker, playerNum;
 	String [] parts;
 	drawingBoard component = new drawingBoard();
 	boardPosition [] positionArray = new boardPosition [40];        //Property array of coordinates
-	Player location = new Player();
+	Player [] player = new Player [4];
 	
 	//Makes the dice panel and sets the roll to player one on intialization
 	public rollDice() throws IOException
 	{
 		panel = new JPanel();
 		listener = new ClickRollDice();
-		player = 0;
-		tracker = 1;
+		tracker = 0;
+		playerNum = 0;
 		
+		createPlayers();
 		createDicePanel();
 		setArray();
+	}
+	
+	public void createPlayers()
+	{
+		for (int x = 0; x < 4; x++)
+		{
+			player[x] = new Player(x);
+			
+		}
 	}
 	
 	//Create the panel that houses the ability to roll dice.
@@ -114,137 +118,57 @@ public class rollDice extends JPanel
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1 = randomGen.nextInt(6) + 1;
-		die2 = randomGen.nextInt(6) + 1;
+		die1 =6; //randomGen.nextInt(6) + 1;
+		die2 =6; //randomGen.nextInt(6) + 1;
 		
 		textField.setText(die1 + " , " + die2);
 		
-		//The tracker tracks which player is rolling.
-		//The player variable is edited for later use in determining which player moved.
+		//The playerNum tracks which player is rolling.
+		//The tracker variable is edited for later use in determining which player is next.
 		
-		//Player 1.
-		if (tracker == 1)
-		{
-			//Player and tracker updated for the next players roll.
-			player = tracker;
-			if (die1 == die2)
-				location.doubles++;
-			else
-			{
-				tracker = tracker + 1;
-				location.doubles = 0;
-			}
 
-			if (location.doubles == 3)
-			{
-				position_P1 = 10;
-				location.P1_inJail = true;
-				location.doubles = 0;
-				tracker = tracker + 1;
-			}
-			else
-				position_P1 = position_P1 + die1 + die2;
-			//If the player's position extends past the board locations, set the true location.
-			if (position_P1 > 39)
-			{
-				position_P1 = position_P1 - 40;
-				
-			}
-		}
-		//Player 2.
-		else if (tracker == 2)
-		{
-			//Player and tracker updated for the next players roll.
-			player = tracker;
-			if (die1 == die2)
-				location.doubles++;
-			else
-			{
-				tracker = tracker + 1;
-				location.doubles = 0;
-			}
-
-			if (location.doubles == 3)
-			{
-				position_P2 = 10;
-				location.P2_inJail = true;
-				location.doubles = 0;
-				tracker = tracker + 1;
-			}
-			else
-				position_P2 = position_P2 + die1 + die2;
-			//If the player's position extends past the board locations, set the true location.
-			if (position_P2 > 39)
-			{
-				position_P2 = position_P2 - 40;
-				
-			}
-		}
-		//Player 3.
-		else if (tracker == 3)
-		{
-			//Player and tracker updated for the next players roll.
-			player = tracker;
-			if (die1 == die2)
-				location.doubles++;
-			else
-			{
-				tracker = tracker + 1;
-				location.doubles = 0;
-			}
-			
-			if (location.doubles == 3)
-			{
-				position_P3 = 10;
-				location.P3_inJail = true;
-				location.doubles = 0;
-				tracker = tracker + 1;
-			}
-			else
-				position_P3 = position_P3 + die1 + die2;
-			//If the player's position extends past the board locations, set the true location.
-			if (position_P3 > 39)
-			{
-				position_P3 = position_P3 - 40;
-				
-			}
-		}
-		//Player 4.
+		//Player and tracker updated for the next players roll.
+		playerNum = tracker;
+		
+		if (die1 == die2)
+			player[playerNum].doubles++;
 		else
 		{
-			//Player and tracker updated for the next players roll.
-			if (die1 == die2)
-				location.doubles++;
+			//If player 3's turn is over then we change to player 1.
+			if (tracker == 3)  
+				tracker = 0;
 			else
-			{
-				tracker = 1;
-				location.doubles = 0;
-			}
-			player = 0;
+				tracker = tracker + 1;
 			
-			if (location.doubles == 3)
-			{
-				position_P4 = 10;
-				location.P4_inJail = true;
-				location.doubles = 0;
-				tracker = 1;
-			}
-			else
-				position_P4 = position_P4 + die1 + die2;
-			//If the player's position extends past the board locations, set the true location.
-			if (position_P4 > 39)
-			{
-				position_P4 = position_P4 - 40;
-				
-			}
+			player[playerNum].doubles = 0;
 		}
 		
-    }
+		//If player rolled 3 dbls in a row, off to jail they go.
+		if (player[playerNum].doubles == 3)
+		{
+			player[playerNum].location = 10;
+			player[playerNum].inJail = true;
+			player[playerNum].doubles = 0;
+			
+			if (tracker == 3)
+				tracker = 0;
+			else
+				tracker = tracker + 1;
+		}
+		else
+			player[playerNum].location = player[playerNum].location + die1 + die2;
+		//If the player's position extends past the board locations, set the true location.
+		if (player[playerNum].location > 39)
+		{
+			player[playerNum].location = player[playerNum].location - 40;
+				
+		}
+	}
+		
     
     /**
      *This listens for the roll dice button to be clicked.
      *The component takes the position of the player that rolled the dice.
-     *The if's are to check which players location was edited.
      *The location is also sent to the player class, so each players current location is updated.
      */
     class ClickRollDice implements ActionListener
@@ -252,26 +176,9 @@ public class rollDice extends JPanel
 		public void actionPerformed(ActionEvent event)
 		{
 			getMoves();
-			if (player == 1)
-			{
-				component.appendXY(positionArray[position_P1].xCoordinate, positionArray[position_P1].yCoordinate, player);
-				location.setLocation(position_P1, player);
-			}
-			else if (player == 2)
-			{
-				component.appendXY(positionArray[position_P2].xCoordinate, positionArray[position_P2].yCoordinate, player);
-				location.setLocation(position_P2, player);
-			}
-			else if (player == 3)
-			{
-				component.appendXY(positionArray[position_P3].xCoordinate, positionArray[position_P3].yCoordinate, player);
-				location.setLocation(position_P3, player);
-			}
-			else
-			{
-				component.appendXY(positionArray[position_P4].xCoordinate, positionArray[position_P4].yCoordinate, player);
-				location.setLocation(position_P4, player);
-			}
+			
+			component.appendXY(positionArray[(player[playerNum].location)].xCoordinate, positionArray[(player[playerNum].location)].yCoordinate, playerNum);
+			player[playerNum].setLocation((player[playerNum].location), playerNum);
 			
 		}
 	}
