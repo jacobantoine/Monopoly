@@ -9,6 +9,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 
 public class drawingBoard extends JComponent
