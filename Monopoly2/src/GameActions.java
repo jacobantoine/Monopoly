@@ -1,5 +1,6 @@
 //Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 
@@ -7,6 +8,8 @@ import java.util.Random;
 
 import javax.swing.JTextField;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,7 +18,7 @@ import jtesting.Player;
 
 //Class that controls the dice. Controls that place to go and which players turn it is.
 
-public class rollDice extends JPanel
+public class GameActions extends JFrame
 {
 
 	private static final long serialVersionUID = 1L;
@@ -35,16 +38,15 @@ public class rollDice extends JPanel
 	Player [] player = new Player [4];
 	
 	//Makes the dice panel and sets the roll to player one on intialization
-	public rollDice() throws IOException
+	public GameActions() throws IOException
 	{
-		panel = new JPanel();
 		listener = new ClickRollDice();
 		tracker = 0;
 		playerNum = 0;
 		
 		boardSpaces.setArray();
 		createPlayers();
-		createDicePanel();
+		createGUI();
 	}
 	
 	public void createPlayers()
@@ -56,19 +58,20 @@ public class rollDice extends JPanel
 	}
 	
 	//Create the panel that houses the ability to roll dice.
-	public void createDicePanel()
+	public void createGUI()
     {
     	panel = new JPanel();
-		
+		panel.setBackground(Color.red);
         btnRollDice = new JButton("Roll Dice");
 		btnRollDice.addActionListener(listener);
-        panel.add(btnRollDice);
-        
         textField = new JTextField();
         textField.setEditable(false);
+        panel.add(btnRollDice);
         panel.add(textField);
         textField.setColumns(4);
-        this.add(panel);
+        getContentPane().add(component);
+        getContentPane().add(panel, BorderLayout.EAST);
+        pack();
     }
 	
 	//Makes the array of property coordinates to move the image to
@@ -81,8 +84,8 @@ public class rollDice extends JPanel
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1 = 3;   //randomGen.nextInt(6) + 1;
-		die2 = 3;  //randomGen.nextInt(6) + 1;
+		die1=randomGen.nextInt(6) + 1;
+		die2=randomGen.nextInt(6) + 1;
 		
 		
 		textField.setText(die1 + " , " + die2);
@@ -157,8 +160,7 @@ public class rollDice extends JPanel
 		boardSpaces.checkLocation(player[playerNum].location);
 		//boardSpaces.setVisible(true);
 	}
-		
-    
+  
     /**
      *This listens for the roll dice button to be clicked.
      *The component takes the position of the player that rolled the dice.
