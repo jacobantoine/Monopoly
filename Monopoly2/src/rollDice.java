@@ -81,8 +81,9 @@ public class rollDice extends JPanel
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1 =1;   //randomGen.nextInt(6) + 1;
+		die1 = 3;   //randomGen.nextInt(6) + 1;
 		die2 = 3;  //randomGen.nextInt(6) + 1;
+		
 		
 		textField.setText(die1 + " , " + die2);
 		
@@ -118,8 +119,31 @@ public class rollDice extends JPanel
 			else
 				tracker = tracker + 1;
 		}
+		//IF the player is in jail, didn't not roll doubles, and it has not been three turns in jail,
+		//The player stays in jail, and the time in jail counter is incremented.
+		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 2))
+		{
+			System.out.println("Not out of jail.");
+			player[playerNum].jailTime = player[playerNum].jailTime + 1;
+		}
+		//If the player is in jail, and rolls doubles, the player is no longer in jail.
+		//Jail time reset.
+		else if ((player[playerNum].inJail == true) && (die1 == die2))
+		{
+			player[playerNum].inJail = false;
+			player[playerNum].jailTime = 0;
+		}
+		//If the player had to wait three turns to get out of jail, let the player out,
+		//Reset the jail time counter.
+		else if (player[playerNum].jailTime == 2)
+		{
+			player[playerNum].inJail = false;
+			player[playerNum].jailTime = 0;
+		}
+		//If the player gets to move freely, without the hindrances of prison.
 		else	
-			player[playerNum].location = player[playerNum].location + die1 + die2;					
+			player[playerNum].location = player[playerNum].location + die1 + die2;	
+		
 		
 		
 		//If the player's position extends past the board locations, set the true location.
