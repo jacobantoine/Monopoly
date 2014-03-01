@@ -1,4 +1,4 @@
-//Brian Hatcher Gary Donovich Jacob Antoine
+//Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -13,10 +13,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import jtesting.Player;
+
 //This class is used as an array of itself to keep track of property coordinates
 
 public class boardPosition extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int position;
 	int xCoordinate;
 	int yCoordinate;
@@ -85,19 +91,19 @@ public class boardPosition extends JFrame
 			return 0;		
 	}
 	
-	public void checkLocation(int location)
+	public void checkLocation(int location, Player player)
 	{
 		switch (location)
 		{
-			case 4: incomeTax();
+			case 4: incomeTax(player);
 					break;
 		}
 	}
 	
-	public void incomeTax()
+	public void incomeTax(Player player)
 	{
 		listener = new ClickIncomeTax();
-		
+
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
@@ -126,11 +132,12 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
-				System.out.println("TEST");
+				GameRun.gameInfoText.append("TEST UNO\n\n");
 			}
-			else
+			if (rdbtnPay_1.isSelected())
 			{
-				System.out.println("TEST DOS");
+				GameRun.gameInfoText.append("TEST DOS\n\n");
+				//player.addCash(200);
 			}
 		}
 	}

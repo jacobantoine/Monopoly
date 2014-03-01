@@ -1,18 +1,18 @@
 //Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-
-import java.util.Random;
-
-import javax.swing.JTextField;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Random;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import jtesting.Player;
 
@@ -26,6 +26,7 @@ public class GameRun extends JFrame
 	private JButton btnRollDice;
 	private JTextField textField;
 	private ActionListener listener;
+	public static JTextArea gameInfoText;
 	
     private int die1, die2;
 	
@@ -68,8 +69,21 @@ public class GameRun extends JFrame
         panel.add(btnRollDice);
         panel.add(textField);
         textField.setColumns(4);
+		
         getContentPane().add(component);
         getContentPane().add(panel, BorderLayout.EAST);
+        
+        gameInfoText = new JTextArea("");
+        gameInfoText.setColumns(35);
+        panel.add(gameInfoText);
+        gameInfoText.setRows(5);
+        gameInfoText.setBackground(Color.GRAY);
+        gameInfoText.setForeground(Color.WHITE);
+        gameInfoText.setEditable(false);
+        
+		JScrollPane textLabelScroll = new JScrollPane(gameInfoText);
+		panel.add(textLabelScroll);
+		
         pack();
     }
 	
@@ -83,8 +97,8 @@ public class GameRun extends JFrame
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1=randomGen.nextInt(6) + 1;
-		die2=randomGen.nextInt(6) + 1;
+		die1= randomGen.nextInt(6) + 1;
+		die2= randomGen.nextInt(6) + 1;
 		
 		
 		textField.setText(die1 + " , " + die2);
@@ -156,8 +170,9 @@ public class GameRun extends JFrame
 				
 		}
 		
-		boardSpaces.checkLocation(player[playerNum].location);
-		//boardSpaces.setVisible(true);
+		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
+		//System.out.println(player[playerNum].money);
+		
 	}
   
     /**
