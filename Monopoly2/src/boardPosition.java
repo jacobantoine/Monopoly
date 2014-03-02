@@ -133,6 +133,7 @@ public class boardPosition extends JFrame
 			if (rdbtnPay.isSelected())
 			{
 				GameRun.gameInfoText.append("TEST UNO\n\n");
+				
 			}
 			if (rdbtnPay_1.isSelected())
 			{

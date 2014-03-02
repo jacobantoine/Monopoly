@@ -61,13 +61,13 @@ public class GameActions extends JFrame
 	public void createGUI()
     {
     	panel = new JPanel();
-		panel.setBackground(Color.red);
         btnRollDice = new JButton("Roll Dice");
 		btnRollDice.addActionListener(listener);
         textField = new JTextField();
         textField.setEditable(false);
         panel.add(btnRollDice);
         panel.add(textField);
+        
         textField.setColumns(4);
         getContentPane().add(component);
         getContentPane().add(panel, BorderLayout.EAST);
@@ -157,7 +157,7 @@ public class GameActions extends JFrame
 				
 		}
 		
-		boardSpaces.checkLocation(player[playerNum].location);
+		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
 		//boardSpaces.setVisible(true);
 	}
   
