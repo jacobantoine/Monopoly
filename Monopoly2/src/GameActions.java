@@ -61,13 +61,20 @@ public class GameActions extends JFrame
 	public void createGUI()
     {
     	panel = new JPanel();
+<<<<<<< HEAD
 		panel.setBackground(Color.red);
+=======
+>>>>>>> origin/Cody
         btnRollDice = new JButton("Roll Dice");
 		btnRollDice.addActionListener(listener);
         textField = new JTextField();
         textField.setEditable(false);
         panel.add(btnRollDice);
         panel.add(textField);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> origin/Cody
         textField.setColumns(4);
         getContentPane().add(component);
         getContentPane().add(panel, BorderLayout.EAST);
@@ -157,7 +164,11 @@ public class GameActions extends JFrame
 				
 		}
 		
+<<<<<<< HEAD
 		boardSpaces.checkLocation(player[playerNum].location);
+=======
+		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
+>>>>>>> origin/Cody
 		//boardSpaces.setVisible(true);
 	}
   

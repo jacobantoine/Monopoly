@@ -12,11 +12,20 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+<<<<<<< HEAD
+=======
+
+import jtesting.Player;
+>>>>>>> origin/Cody
 
 //This class is used as an array of itself to keep track of property coordinates
 
 public class boardPosition extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int position;
 	int xCoordinate;
 	int yCoordinate;
@@ -85,19 +94,34 @@ public class boardPosition extends JFrame
 			return 0;		
 	}
 	
+<<<<<<< HEAD
 	public void checkLocation(int location)
 	{
 		switch (location)
 		{
 			case 4: incomeTax();
+=======
+	public void checkLocation(int location, Player player)
+	{
+		switch (location)
+		{
+			case 4: incomeTax(player);
+>>>>>>> origin/Cody
 					break;
 		}
 	}
 	
+<<<<<<< HEAD
 	public void incomeTax()
 	{
 		listener = new ClickIncomeTax();
 		
+=======
+	public void incomeTax(Player player)
+	{
+		listener = new ClickIncomeTax();
+
+>>>>>>> origin/Cody
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
@@ -126,11 +150,21 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
+<<<<<<< HEAD
 				System.out.println("TEST");
 			}
 			else
 			{
 				System.out.println("TEST DOS");
+=======
+				GameRun.gameInfoText.append("TEST UNO\n\n");
+				
+			}
+			if (rdbtnPay_1.isSelected())
+			{
+				GameRun.gameInfoText.append("TEST DOS\n\n");
+				//player.addCash(200);
+>>>>>>> origin/Cody
 			}
 		}
 	}
