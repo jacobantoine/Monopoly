@@ -64,7 +64,7 @@ public class boardPosition extends JFrame
 	protected void setArray () throws IOException 
 	   {
 			// Open the file
-	       	FileInputStream fstream = new FileInputStream("C:\\Users\\gary danovich\\desktop\\Monopoly2\\src\\position");
+	       	FileInputStream fstream = new FileInputStream("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\position");
 	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	       	String line;
 	       	

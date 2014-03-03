@@ -50,10 +50,10 @@ public class drawingBoard extends JComponent
 		   {
 			   	imageUrl = new URL(Monopoly_LINK);
 			   	monopolyImage = ImageIO.read(imageUrl);
-			   	catImage = ImageIO.read(new File("C:\\Users\\gary danovich\\desktop\\Monopoly2\\src\\CatPiece.jpg"));
-			   	hatImage = ImageIO.read(new File("C:\\Users\\gary danovich\\desktop\\Monopoly2\\src\\Hat.png"));
-			   	ironImage = ImageIO.read(new File("C:\\Users\\gary danovich\\desktop\\Monopoly2\\src\\Iron.jpg"));
-			   	shoeImage = ImageIO.read(new File("C:\\Users\\gary danovich\\desktop\\Monopoly2\\src\\Shoe.jpg"));
+			   	catImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\CatPiece.jpg"));
+			   	hatImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Hat.png"));
+			   	ironImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Iron.jpg"));
+			   	shoeImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Shoe.jpg"));
 		   } 
 		   catch (MalformedURLException e) 
 		   {
@@ -94,23 +94,23 @@ public class drawingBoard extends JComponent
 		//Checks which player rolled, and edits the coordinates of that players piece.
 		if (playerTracker == 1)
 		{
-			xComponent = X - 100;
+			xComponent = X;
 			yComponent = Y;
 		}
 		else if (playerTracker == 2)
 		{
-			x2Component = X - 115;
-			y2Component = Y + 10;
+			x2Component = X;
+			y2Component = Y;
 		}
 		else if (playerTracker == 3)
 		{
-			x3Component = X - 100;
-			y3Component = Y - 15;
+			x3Component = X;
+			y3Component = Y;
 		}
 		else
 		{
-			x4Component = X - 100;
-			y4Component = Y + 15;
+			x4Component = X;
+			y4Component = Y;
 		}
 		repaint();
 	}
