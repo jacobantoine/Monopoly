@@ -1,26 +1,24 @@
 //Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+
+import java.util.Random;
+
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Frame;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Random;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import jtesting.Player;
 
 //Class that controls the dice. Controls that place to go and which players turn it is.
 
-public class GameRun extends JFrame
+public class GameActions extends JFrame
 {
 
 	private static final long serialVersionUID = 1L;
@@ -28,10 +26,8 @@ public class GameRun extends JFrame
 	private JButton btnRollDice;
 	private JTextField textField;
 	private ActionListener listener;
-	public static JTextArea gameInfoText;
 	
     private int die1, die2;
-	static int changeMoney;
 	
 	//Tracking which player is moving.
 	private int tracker, playerNum;
@@ -39,15 +35,14 @@ public class GameRun extends JFrame
 	drawingBoard component = new drawingBoard();
 	boardPosition boardSpaces = new boardPosition(); 
 	
-    static Player [] player = new Player [4];
+	Player [] player = new Player [4];
 	
 	//Makes the dice panel and sets the roll to player one on intialization
-	public GameRun() throws IOException
+	public GameActions() throws IOException
 	{
 		listener = new ClickRollDice();
 		tracker = 0;
 		playerNum = 0;
-		changeMoney = 0;
 		
 		boardSpaces.setArray();
 		createPlayers();
@@ -58,60 +53,24 @@ public class GameRun extends JFrame
 	{
 		for (int x = 0; x < 4; x++)
 		{
-			player[x] = new Player(x+1);
+			player[x] = new Player(x);
 		}
 	}
 	
-	//Create the panel that houses the ability to roll dice and creates the 
-	//text area for the game updates.
+	//Create the panel that houses the ability to roll dice.
 	public void createGUI()
     {
-    	panel = new JPanel(new GridLayout(2,1));
-    	JPanel textPanel = new JPanel(new GridLayout(1,1));
-    	JPanel dicePanel = new JPanel(new GridLayout(5,3));
-		JPanel [] spacerPanel = new JPanel[20];
-        int count = 0;
-        for (int i = 0; i < 20; i++)
-        {
-        	spacerPanel [i] = new JPanel();
-        }
+    	panel = new JPanel();
+		panel.setBackground(Color.red);
         btnRollDice = new JButton("Roll Dice");
 		btnRollDice.addActionListener(listener);
         textField = new JTextField();
         textField.setEditable(false);
+        panel.add(btnRollDice);
+        panel.add(textField);
         textField.setColumns(4);
-        for (int i = 0; i < 5; i++)
-        {
-        	for(int j = 0; j < 3; j++)
-        	{
-        		if (i == 0 && j == 1)
-        		{
-        			dicePanel.add(btnRollDice);
-        		}
-        		else if (i == 1 && j == 1)
-        		{
-        			dicePanel.add(textField);
-        		}
-        		else
-        		{
-        			dicePanel.add(spacerPanel[count]);
-        			count++;
-        		}
-        	}
-        }
-        count = 0;
-        gameInfoText = new JTextArea("");
-        textPanel.add(gameInfoText);
-        gameInfoText.setBackground(Color.GRAY);
-        gameInfoText.setForeground(Color.WHITE);
-        gameInfoText.setEditable(false);
-        
-		JScrollPane textLabelScroll = new JScrollPane(gameInfoText);
-		panel.add(dicePanel);
-		panel.add(textLabelScroll);
-        getContentPane().add(component, BorderLayout.CENTER);
+        getContentPane().add(component);
         getContentPane().add(panel, BorderLayout.EAST);
-		
         pack();
     }
 	
@@ -125,8 +84,8 @@ public class GameRun extends JFrame
     public void getMoves()
     {
     	Random randomGen = new Random();
-		die1= randomGen.nextInt(6) + 1;
-		die2= randomGen.nextInt(6) + 1;
+		die1=randomGen.nextInt(6) + 1;
+		die2=randomGen.nextInt(6) + 1;
 		
 		
 		textField.setText(die1 + " , " + die2);
@@ -135,9 +94,6 @@ public class GameRun extends JFrame
 		//The tracker variable is edited for later use in determining which player is next.
 		
 
-		player[playerNum].addCash(changeMoney);
-		changeMoney = 0;
-		
 		//Player and tracker updated for the next players roll.
 		playerNum = tracker;
 		
@@ -157,8 +113,6 @@ public class GameRun extends JFrame
 		//If player rolled 3 dbls in a row, off to jail they go.
 		if (player[playerNum].doubles == 3)
 		{
-			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
-					 " went to jail for 3 doubles rolled.\n");
 			player[playerNum].location = 10;
 			player[playerNum].inJail = true;
 			player[playerNum].doubles = 0;
@@ -170,14 +124,9 @@ public class GameRun extends JFrame
 		}
 		//IF the player is in jail, didn't not roll doubles, and it has not been three turns in jail,
 		//The player stays in jail, and the time in jail counter is incremented.
-<<<<<<< HEAD
-		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 1))
-=======
 		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 2))
->>>>>>> origin/Jacob's-Branch
 		{
-			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
-					 " is in jail and cannot move.\n");
+			System.out.println("Not out of jail.");
 			player[playerNum].jailTime = player[playerNum].jailTime + 1;
 		}
 		//If the player is in jail, and rolls doubles, the player is no longer in jail.
@@ -186,21 +135,13 @@ public class GameRun extends JFrame
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
-			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
-					 " rolled doubles and is free!\n");
 		}
 		//If the player had to wait three turns to get out of jail, let the player out,
 		//Reset the jail time counter.
-<<<<<<< HEAD
-		else if (player[playerNum].jailTime == 1)
-=======
 		else if (player[playerNum].jailTime == 2)
->>>>>>> origin/Jacob's-Branch
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
-			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
-					 " time is up and is free to move their next roll!\n");
 		}
 		//If the player gets to move freely, without the hindrances of prison.
 		else	
@@ -209,22 +150,15 @@ public class GameRun extends JFrame
 		
 		
 		//If the player's position extends past the board locations, set the true location.
-		//Passed go so collect $200
 		if (player[playerNum].location > 39)
 		{
 			player[playerNum].addCash(200);
 			player[playerNum].location = player[playerNum].location - 40;
-		   GameRun.gameInfoText.append("Player " + player[playerNum].player + " passed go and collected $200\n");	
+				
 		}
 		
-		
-		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
-<<<<<<< HEAD
-		player[playerNum].money = player[playerNum].money + changeMoney;
-		changeMoney = 0;
-=======
->>>>>>> origin/Jacob's-Branch
-		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  player[playerNum].money + "\n");
+		boardSpaces.checkLocation(player[playerNum].location);
+		//boardSpaces.setVisible(true);
 	}
   
     /**
