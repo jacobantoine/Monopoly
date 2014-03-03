@@ -1,6 +1,9 @@
-//Brian Hatcher Gary Donovich Jacob Antoine
+//Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
 import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dialog;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -9,23 +12,33 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import jtesting.Player;
 
 //This class is used as an array of itself to keep track of property coordinates
 
 public class boardPosition extends JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int position;
 	int xCoordinate;
 	int yCoordinate;
+	
+	Player temp;
 	
 	boardPosition [] positionArray = new boardPosition [40];        //Property array of coordinates
 	String [] parts;
 	private JPanel panel;
 	private JRadioButton rdbtnPay, rdbtnPay_1;
 	private ActionListener listener;
+	private static Dialog dialog;
 	
 	boardPosition () throws IOException
 	{
@@ -45,7 +58,7 @@ public class boardPosition extends JFrame
 	protected void setArray () throws IOException 
 	   {
 			// Open the file
-	       	FileInputStream fstream = new FileInputStream("C:\\position.txt");
+	       	FileInputStream fstream = new FileInputStream("C:\\Users\\jantoine\\workspace\\Monopoly2\\src\\position");
 	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	       	String line;
 	       	
@@ -77,27 +90,37 @@ public class boardPosition extends JFrame
 	        }
 	   }
 	
-	public int checkGO(int position)
-	{
-		if (position > 39)
-			return 200;
-		else
-			return 0;		
-	}
 	
-	public void checkLocation(int location)
+	//Directs you to which function the location you landed on does
+	public void checkLocation(int location, Player currentPlayer)
 	{
 		switch (location)
 		{
-			case 4: incomeTax();
+			case 4: incomeTax(currentPlayer); 
 					break;
+			case 30: Jail(currentPlayer);
+					break;
+			case 38: luxuryTax(currentPlayer);
 		}
 	}
 	
-	public void incomeTax()
+	//This function sends you to jail and sets the variables likewise
+	public void Jail(Player currentPlayer)
+	{
+		currentPlayer.location=10;
+		currentPlayer.inJail=true;
+		currentPlayer.doubles=0;
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " went to jail.\n");
+	}
+	
+	//Function to make the income tax panel to appear
+	public void incomeTax(Player currentPlayer)
 	{
 		listener = new ClickIncomeTax();
 		
+		temp = new Player(currentPlayer.player);
+		temp = currentPlayer;
+
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
@@ -106,32 +129,58 @@ public class boardPosition extends JFrame
 		
 		rdbtnPay_1 = new JRadioButton("Pay $200");
 		rdbtnPay_1.addActionListener(listener);
-		
-		
+
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnPay);
 		group.add(rdbtnPay_1);
-		
+		group.clearSelection();
 		panel.add(rdbtnPay);
 		panel.add(rdbtnPay_1);
 		
-		this.add(panel);
-		this.setSize(200, 100);
-		this.setVisible(true);
+		dialog = new JDialog(this , "Luxary Tax" , true);
+		dialog.add(panel);
+		dialog.setSize(200, 100);                    
+		dialog.setVisible(true);
+		
+		
 	}
 
+	//Function to pay your luxury tax
+	public void luxuryTax(Player currentPlayer)
+	{
+		if(currentPlayer.money>75)
+		{
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
+		currentPlayer.money = currentPlayer.money-75;
+		}
+		else
+		{
+			GameRun.gameInfoText.append("Player " + currentPlayer.player + " cannot pay\n");
+			GameRun.gameInfoText.append("Player " + currentPlayer.player + " has " + currentPlayer.money + " dollars \n");
+			
+		}
+	}
+
+	
+	//Listener for Income tax. It decides on whether you pay 200 or 10%
 	class ClickIncomeTax implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
 		{
+			
 			if (rdbtnPay.isSelected())
 			{
-				System.out.println("TEST");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 
+						(int)(temp.money*.1) + " in taxes.\n");
+				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
-			else
+			if (rdbtnPay_1.isSelected())
 			{
-				System.out.println("TEST DOS");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + 
+						" in taxes.\n");
+				GameRun.changeMoney = -200;
 			}
+			dispose();
 		}
 	}
 	
