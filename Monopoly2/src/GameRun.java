@@ -37,7 +37,7 @@ public class GameRun extends JFrame
 	drawingBoard component = new drawingBoard();
 	boardPosition boardSpaces = new boardPosition(); 
 	
-	Player [] player = new Player [4];
+    static Player [] player = new Player [4];
 	
 	//Makes the dice panel and sets the roll to player one on intialization
 	public GameRun() throws IOException
@@ -56,11 +56,12 @@ public class GameRun extends JFrame
 	{
 		for (int x = 0; x < 4; x++)
 		{
-			player[x] = new Player(x);
+			player[x] = new Player(x+1);
 		}
 	}
 	
-	//Create the panel that houses the ability to roll dice.
+	//Create the panel that houses the ability to roll dice and creates the 
+	//text area for the game updates.
 	public void createGUI()
     {
     	panel = new JPanel();
@@ -71,20 +72,19 @@ public class GameRun extends JFrame
         panel.add(btnRollDice);
         panel.add(textField);
         textField.setColumns(4);
-		
-        getContentPane().add(component);
-        getContentPane().add(panel, BorderLayout.EAST);
-        
         gameInfoText = new JTextArea("");
         gameInfoText.setColumns(35);
         panel.add(gameInfoText);
-        gameInfoText.setRows(5);
+        gameInfoText.setRows(20);
         gameInfoText.setBackground(Color.GRAY);
         gameInfoText.setForeground(Color.WHITE);
         gameInfoText.setEditable(false);
         
 		JScrollPane textLabelScroll = new JScrollPane(gameInfoText);
 		panel.add(textLabelScroll);
+		
+        getContentPane().add(component);
+        getContentPane().add(panel, BorderLayout.EAST);
 		
         pack();
     }
@@ -131,6 +131,8 @@ public class GameRun extends JFrame
 		//If player rolled 3 dbls in a row, off to jail they go.
 		if (player[playerNum].doubles == 3)
 		{
+			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
+					 " went to jail for 3 doubles rolled.\n");
 			player[playerNum].location = 10;
 			player[playerNum].inJail = true;
 			player[playerNum].doubles = 0;
@@ -144,7 +146,8 @@ public class GameRun extends JFrame
 		//The player stays in jail, and the time in jail counter is incremented.
 		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 2))
 		{
-			System.out.println("Not out of jail.");
+			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
+					 " is in jail and cannot move.\n");
 			player[playerNum].jailTime = player[playerNum].jailTime + 1;
 		}
 		//If the player is in jail, and rolls doubles, the player is no longer in jail.
@@ -153,6 +156,8 @@ public class GameRun extends JFrame
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
+			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
+					 " rolled doubles and is free!\n");
 		}
 		//If the player had to wait three turns to get out of jail, let the player out,
 		//Reset the jail time counter.
@@ -160,6 +165,8 @@ public class GameRun extends JFrame
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
+			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
+					 " time is up and is free to move their next roll!\n");
 		}
 		//If the player gets to move freely, without the hindrances of prison.
 		else	
@@ -168,17 +175,17 @@ public class GameRun extends JFrame
 		
 		
 		//If the player's position extends past the board locations, set the true location.
+		//Passed go so collect $200
 		if (player[playerNum].location > 39)
 		{
 			player[playerNum].addCash(200);
 			player[playerNum].location = player[playerNum].location - 40;
-				
+		   GameRun.gameInfoText.append("Player " + player[playerNum].player + " passed go and collected $200\n");	
 		}
 		
+		
 		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
-		System.out.println(player[playerNum].money + " " + player[playerNum].player + " " + changeMoney);
-		
-		
+		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  player[playerNum].money + "\n");
 	}
   
     /**

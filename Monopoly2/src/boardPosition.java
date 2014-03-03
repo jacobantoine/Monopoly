@@ -85,25 +85,30 @@ public class boardPosition extends JFrame
 	        }
 	   }
 	
-	public int checkGO(int position)
-	{
-		if (position > 39)
-			return 200;
-		else
-			return 0;		
-	}
 	
+	//Directs you to which function the location you landed on does
 	public void checkLocation(int location, Player currentPlayer)
 	{
 		switch (location)
 		{
-			case 4: incomeTax(currentPlayer);
+			case 4: incomeTax(currentPlayer); 
 					break;
-					
+			case 30: Jail(currentPlayer);
+					break;
 			case 38: luxuryTax(currentPlayer);
 		}
 	}
 	
+	//This function sends you to jail and sets the variables likewise
+	public void Jail(Player currentPlayer)
+	{
+		currentPlayer.location=10;
+		currentPlayer.inJail=true;
+		currentPlayer.doubles=0;
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " went to jail.\n");
+	}
+	
+	//Function to make the income tax panel to appear
 	public void incomeTax(Player currentPlayer)
 	{
 		listener = new ClickIncomeTax();
@@ -119,12 +124,11 @@ public class boardPosition extends JFrame
 		
 		rdbtnPay_1 = new JRadioButton("Pay $200");
 		rdbtnPay_1.addActionListener(listener);
-		
-		
+
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnPay);
 		group.add(rdbtnPay_1);
-		
+		group.clearSelection();
 		panel.add(rdbtnPay);
 		panel.add(rdbtnPay_1);
 		
@@ -134,28 +138,41 @@ public class boardPosition extends JFrame
 		
 	}
 	
+	//Function to pay your luxury tax
 	public void luxuryTax(Player currentPlayer)
 	{
+		if(currentPlayer.money>75)
+		{
 		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
-		GameRun.changeMoney = -75;
+		currentPlayer.money = currentPlayer.money-75;
+		}
+		else
+		{
+			GameRun.gameInfoText.append("Player " + currentPlayer.player + " cannot pay\n");
+			GameRun.gameInfoText.append("Player " + currentPlayer.player + " has " + currentPlayer.money + " dollars \n");
+			
+		}
 	}
 
+	
+	//Listener for Income tax. It decides on whether you pay 200 or 10%
 	class ClickIncomeTax implements ActionListener
 	{
 		public void actionPerformed(ActionEvent event)
 		{
+			
 			if (rdbtnPay.isSelected())
 			{
-				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + (int)(temp.money*.1) + " in taxes.\n");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 
+						(int)(temp.money*.1) + " in taxes.\n");
 				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
 			if (rdbtnPay_1.isSelected())
 			{
-				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + " in taxes.\n");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + 
+						" in taxes.\n");
 				GameRun.changeMoney = -200;
 			}
-			
-			setVisible(false);
 			dispose();
 		}
 	}
