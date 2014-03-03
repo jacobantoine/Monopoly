@@ -100,7 +100,7 @@ public class boardPosition extends JFrame
 			case 4: incomeTax(currentPlayer);
 					break;
 					
-			case 38: luxuryTax();
+			case 38: luxuryTax(currentPlayer);
 		}
 	}
 	
@@ -134,9 +134,9 @@ public class boardPosition extends JFrame
 		
 	}
 	
-	public void luxuryTax()
+	public void luxuryTax(Player currentPlayer)
 	{
-		GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 75 + " in taxes.\n");
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
 		GameRun.changeMoney = -75;
 	}
 
