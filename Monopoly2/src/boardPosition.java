@@ -131,10 +131,12 @@ public class boardPosition extends JFrame
 		this.add(panel);
 		this.setSize(200, 100);
 		this.setVisible(true);
+		
 	}
 	
 	public void luxuryTax()
 	{
+		GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 75 + " in taxes.\n");
 		GameRun.changeMoney = -75;
 	}
 
@@ -144,12 +146,12 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
-				GameRun.gameInfoText.append("Player " + temp.player + " paid " + (temp.money*.1) + " in taxes.");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + (int)(temp.money*.1) + " in taxes.\n");
 				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
 			if (rdbtnPay_1.isSelected())
 			{
-				GameRun.gameInfoText.append("TEST DOS\n\n");
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + " in taxes.\n");
 				GameRun.changeMoney = -200;
 			}
 			
