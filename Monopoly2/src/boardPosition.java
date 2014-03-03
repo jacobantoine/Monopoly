@@ -142,7 +142,7 @@ public class boardPosition extends JFrame
 
 		dialog = new JDialog(this, true);
 		dialog.setUndecorated(true);
-		dialog.setLocationRelativeTo(this.getContentPane());
+		dialog.setLocation(800,500);
 		dialog.add(panel);
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
