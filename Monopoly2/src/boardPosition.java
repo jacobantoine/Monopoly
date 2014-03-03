@@ -16,6 +16,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JRootPane;
+import javax.swing.WindowConstants;
 
 import jtesting.Player;
 
@@ -137,10 +139,14 @@ public class boardPosition extends JFrame
 		panel.add(rdbtnPay);
 		panel.add(rdbtnPay_1);
 		
-		dialog = new JDialog(this , "Luxary Tax" , true);
+
+		dialog = new JDialog(this, true);
+		dialog.setUndecorated(true);
+		dialog.setLocationRelativeTo(this.getContentPane());
 		dialog.add(panel);
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
+
 		
 		
 	}
