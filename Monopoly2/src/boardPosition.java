@@ -30,6 +30,8 @@ public class boardPosition extends JFrame
 	int xCoordinate;
 	int yCoordinate;
 	
+	Player temp;
+	
 	boardPosition [] positionArray = new boardPosition [40];        //Property array of coordinates
 	String [] parts;
 	private JPanel panel;
@@ -95,6 +97,7 @@ public class boardPosition extends JFrame
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void checkLocation(int location)
 	{
 		switch (location)
@@ -107,10 +110,20 @@ public class boardPosition extends JFrame
 		{
 			case 4: incomeTax(player);
 >>>>>>> origin/Cody
+=======
+	public void checkLocation(int location, Player currentPlayer)
+	{
+		switch (location)
+		{
+			case 4: incomeTax(currentPlayer);
+>>>>>>> origin/Cody
 					break;
+					
+			case 38: luxuryTax();
 		}
 	}
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public void incomeTax()
 	{
@@ -118,8 +131,14 @@ public class boardPosition extends JFrame
 		
 =======
 	public void incomeTax(Player player)
+=======
+	public void incomeTax(Player currentPlayer)
+>>>>>>> origin/Cody
 	{
 		listener = new ClickIncomeTax();
+		
+		temp = new Player(currentPlayer.player);
+		temp = currentPlayer;
 
 >>>>>>> origin/Cody
 		panel = new JPanel();
@@ -142,6 +161,13 @@ public class boardPosition extends JFrame
 		this.add(panel);
 		this.setSize(200, 100);
 		this.setVisible(true);
+		
+	}
+	
+	public void luxuryTax()
+	{
+		GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 75 + " in taxes.\n");
+		GameRun.changeMoney = -75;
 	}
 
 	class ClickIncomeTax implements ActionListener
@@ -150,6 +176,7 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
+<<<<<<< HEAD
 <<<<<<< HEAD
 				System.out.println("TEST");
 			}
@@ -165,7 +192,19 @@ public class boardPosition extends JFrame
 				GameRun.gameInfoText.append("TEST DOS\n\n");
 				//player.addCash(200);
 >>>>>>> origin/Cody
+=======
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + (int)(temp.money*.1) + " in taxes.\n");
+				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
+			if (rdbtnPay_1.isSelected())
+			{
+				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + " in taxes.\n");
+				GameRun.changeMoney = -200;
+>>>>>>> origin/Cody
+			}
+			
+			setVisible(false);
+			dispose();
 		}
 	}
 	
