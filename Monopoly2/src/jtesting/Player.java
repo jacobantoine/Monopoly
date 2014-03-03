@@ -7,7 +7,10 @@ package jtesting;
 public class Player 
 {
 	//Position tracker.
-	public int doubles, player, location, money, jailDoubles, jailTime;
+	public int doubles, player, location;
+	public int money;
+	public int jailDoubles;
+	public int jailTime;
 	public boolean inJail;
 	
 	//Initialize placemarkers.

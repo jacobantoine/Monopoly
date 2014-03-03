@@ -29,6 +29,7 @@ public class GameRun extends JFrame
 	public static JTextArea gameInfoText;
 	
     private int die1, die2;
+	static int changeMoney;
 	
 	//Tracking which player is moving.
 	private int tracker, playerNum;
@@ -44,6 +45,7 @@ public class GameRun extends JFrame
 		listener = new ClickRollDice();
 		tracker = 0;
 		playerNum = 0;
+		changeMoney = 0;
 		
 		boardSpaces.setArray();
 		createPlayers();
@@ -107,6 +109,9 @@ public class GameRun extends JFrame
 		//The tracker variable is edited for later use in determining which player is next.
 		
 
+		player[playerNum].addCash(changeMoney);
+		changeMoney = 0;
+		
 		//Player and tracker updated for the next players roll.
 		playerNum = tracker;
 		
@@ -171,7 +176,8 @@ public class GameRun extends JFrame
 		}
 		
 		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
-		//System.out.println(player[playerNum].money);
+		System.out.println(player[playerNum].money + " " + player[playerNum].player + " " + changeMoney);
+		
 		
 	}
   

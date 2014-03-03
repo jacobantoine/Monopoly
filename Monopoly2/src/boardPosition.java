@@ -27,6 +27,8 @@ public class boardPosition extends JFrame
 	int xCoordinate;
 	int yCoordinate;
 	
+	Player temp;
+	
 	boardPosition [] positionArray = new boardPosition [40];        //Property array of coordinates
 	String [] parts;
 	private JPanel panel;
@@ -91,18 +93,23 @@ public class boardPosition extends JFrame
 			return 0;		
 	}
 	
-	public void checkLocation(int location, Player player)
+	public void checkLocation(int location, Player currentPlayer)
 	{
 		switch (location)
 		{
-			case 4: incomeTax(player);
+			case 4: incomeTax(currentPlayer);
 					break;
+					
+			case 38: luxuryTax();
 		}
 	}
 	
-	public void incomeTax(Player player)
+	public void incomeTax(Player currentPlayer)
 	{
 		listener = new ClickIncomeTax();
+		
+		temp = new Player(currentPlayer.player);
+		temp = currentPlayer;
 
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
@@ -125,6 +132,11 @@ public class boardPosition extends JFrame
 		this.setSize(200, 100);
 		this.setVisible(true);
 	}
+	
+	public void luxuryTax()
+	{
+		GameRun.changeMoney = -75;
+	}
 
 	class ClickIncomeTax implements ActionListener
 	{
@@ -132,14 +144,17 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
-				GameRun.gameInfoText.append("TEST UNO\n\n");
-				
+				GameRun.gameInfoText.append("Player " + temp.player + " paid " + (temp.money*.1) + " in taxes.");
+				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
 			if (rdbtnPay_1.isSelected())
 			{
 				GameRun.gameInfoText.append("TEST DOS\n\n");
-				//player.addCash(200);
+				GameRun.changeMoney = -200;
 			}
+			
+			setVisible(false);
+			dispose();
 		}
 	}
 	
