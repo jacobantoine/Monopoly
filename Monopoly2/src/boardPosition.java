@@ -1,4 +1,4 @@
-//Brian Hatcher Gary Donovich Jacob Antoine
+//Brian Hatcher Gary Donovich Jacob Antoine Cody Mathena
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -12,11 +12,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-<<<<<<< HEAD
-=======
 
 import jtesting.Player;
->>>>>>> origin/Cody
 
 //This class is used as an array of itself to keep track of property coordinates
 
@@ -96,51 +93,24 @@ public class boardPosition extends JFrame
 			return 0;		
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public void checkLocation(int location)
-	{
-		switch (location)
-		{
-			case 4: incomeTax();
-=======
-	public void checkLocation(int location, Player player)
-	{
-		switch (location)
-		{
-			case 4: incomeTax(player);
->>>>>>> origin/Cody
-=======
 	public void checkLocation(int location, Player currentPlayer)
 	{
 		switch (location)
 		{
 			case 4: incomeTax(currentPlayer);
->>>>>>> origin/Cody
 					break;
 					
-			case 38: luxuryTax();
+			case 38: luxuryTax(currentPlayer);
 		}
 	}
 	
-<<<<<<< HEAD
-<<<<<<< HEAD
-	public void incomeTax()
-	{
-		listener = new ClickIncomeTax();
-		
-=======
-	public void incomeTax(Player player)
-=======
 	public void incomeTax(Player currentPlayer)
->>>>>>> origin/Cody
 	{
 		listener = new ClickIncomeTax();
 		
 		temp = new Player(currentPlayer.player);
 		temp = currentPlayer;
 
->>>>>>> origin/Cody
 		panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		
@@ -164,9 +134,9 @@ public class boardPosition extends JFrame
 		
 	}
 	
-	public void luxuryTax()
+	public void luxuryTax(Player currentPlayer)
 	{
-		GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 75 + " in taxes.\n");
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
 		GameRun.changeMoney = -75;
 	}
 
@@ -176,23 +146,6 @@ public class boardPosition extends JFrame
 		{
 			if (rdbtnPay.isSelected())
 			{
-<<<<<<< HEAD
-<<<<<<< HEAD
-				System.out.println("TEST");
-			}
-			else
-			{
-				System.out.println("TEST DOS");
-=======
-				GameRun.gameInfoText.append("TEST UNO\n\n");
-				
-			}
-			if (rdbtnPay_1.isSelected())
-			{
-				GameRun.gameInfoText.append("TEST DOS\n\n");
-				//player.addCash(200);
->>>>>>> origin/Cody
-=======
 				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + (int)(temp.money*.1) + " in taxes.\n");
 				GameRun.changeMoney = (int) (-temp.money * .1);
 			}
@@ -200,7 +153,6 @@ public class boardPosition extends JFrame
 			{
 				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + " in taxes.\n");
 				GameRun.changeMoney = -200;
->>>>>>> origin/Cody
 			}
 			
 			setVisible(false);
