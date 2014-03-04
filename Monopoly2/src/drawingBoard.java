@@ -23,13 +23,13 @@ public class drawingBoard extends JComponent
 	
 	//The coordinate variables are for player 1, 2, 3, and 4 respectively.
 	//Only the player that moved has his coordinates edited at any given time.
-	int xComponent = 740;
+	int xComponent = 640;
 	int yComponent = 640;
-	int x2Component = 745;
+	int x2Component = 645;
 	int y2Component = 640;
-	int x3Component = 735;
+	int x3Component = 635;
 	int y3Component = 640;
-	int x4Component = 740;
+	int x4Component = 640;
 	int y4Component = 635;
 	
 	//Buffered variables for the images.
@@ -50,10 +50,10 @@ public class drawingBoard extends JComponent
 		   {
 			   	imageUrl = new URL(Monopoly_LINK);
 			   	monopolyImage = ImageIO.read(imageUrl);
-			   	catImage = ImageIO.read(new File("C:\\CatPiece.jpg"));
-			   	hatImage = ImageIO.read(new File("C:\\Hat.png"));
-			   	ironImage = ImageIO.read(new File("C:\\Iron.jpg"));
-			   	shoeImage = ImageIO.read(new File("C:\\Shoe.jpg"));
+			   	catImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\CatPiece.jpg"));
+			   	hatImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Hat.png"));
+			   	ironImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Iron.jpg"));
+			   	shoeImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Shoe.jpg"));
 		   } 
 		   catch (MalformedURLException e) 
 		   {
@@ -75,7 +75,7 @@ public class drawingBoard extends JComponent
 	    super.paintComponent(g);
 	    if (monopolyImage != null) 
 	    {	
-	    		g.drawImage(monopolyImage, 100, 0, 700, 700, this);
+	    		g.drawImage(monopolyImage, 1, 7, 700, 700, this);
 			    g.drawImage(catImage, xComponent, yComponent, 35, 35, this);
 			    g.drawImage(hatImage, x2Component + 13, y2Component, 35, 35, this);
 			    g.drawImage(ironImage, x3Component - 10, y3Component + 8, 35, 35, this);
