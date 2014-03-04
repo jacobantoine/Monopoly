@@ -116,12 +116,6 @@ public class boardPosition extends JFrame
 	//This function sends you to jail and sets the variables likewise
 	public void Jail(Player currentPlayer)
 	{
-<<<<<<< HEAD
-		currentPlayer.location=10;
-		currentPlayer.inJail=true;
-		currentPlayer.doubles=0;
-		GameRun.gameInfoText.append("Player " + currentPlayer.player + " went to jail.\n");
-=======
 		listener = new ClickJailOptions();
 		
 		temp = new Player(currentPlayer.player);
@@ -153,7 +147,6 @@ public class boardPosition extends JFrame
 		dialog.add(jailPanel);
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
->>>>>>> origin/Gary
 	}
 	
 	//Function to make the income tax panel to appear
@@ -179,32 +172,6 @@ public class boardPosition extends JFrame
 		group.clearSelection();
 		panel.add(rdbtnPay);
 		panel.add(rdbtnPay_1);
-		
-<<<<<<< HEAD
-		this.add(panel);
-		this.setSize(200, 100);
-		this.setVisible(true);
-		
-	}
-	
-	//Function to pay your luxury tax
-	public void luxuryTax(Player currentPlayer)
-	{
-		if(currentPlayer.money>75)
-		{
-		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
-		currentPlayer.money = currentPlayer.money-75;
-		}
-		else
-		{
-			GameRun.gameInfoText.append("Player " + currentPlayer.player + " cannot pay\n");
-			GameRun.gameInfoText.append("Player " + currentPlayer.player + " has " + currentPlayer.money + " dollars \n");
-			
-		}
-	}
-
-=======
-
 
 		dialog = new JDialog(this, true);
 		dialog.setUndecorated(true);
@@ -233,7 +200,6 @@ public class boardPosition extends JFrame
 		}
 	}
 
->>>>>>> origin/Gary
 	
 	//Listener for Income tax. It decides on whether you pay 200 or 10%
 	class ClickIncomeTax implements ActionListener
@@ -254,8 +220,7 @@ public class boardPosition extends JFrame
 				GameRun.changeMoney = -200;
 			}
 			dispose();
-<<<<<<< HEAD
-=======
+
 		}
 	}
 	
@@ -279,10 +244,6 @@ public class boardPosition extends JFrame
 				GameRun.gameInfoText.append("Player " + temp.player + " went to jail.\n");
 			}
 			dispose();
-		
-
-			
->>>>>>> origin/Gary
 		}
 	}
 	

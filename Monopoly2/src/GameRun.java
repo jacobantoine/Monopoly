@@ -80,12 +80,6 @@ public class GameRun extends JFrame
         textField = new JTextField();
         textField.setEditable(false);
         textField.setColumns(4);
-<<<<<<< HEAD
-        gameInfoText = new JTextArea("");
-        gameInfoText.setColumns(35);
-        panel.add(gameInfoText);
-        gameInfoText.setRows(20);
-=======
         for (int i = 0; i < 5; i++)
         {
         	for(int j = 0; j < 3; j++)
@@ -108,7 +102,6 @@ public class GameRun extends JFrame
         count = 0;
         gameInfoText = new JTextArea("");
         textPanel.add(gameInfoText);
->>>>>>> origin/Gary
         gameInfoText.setBackground(Color.GRAY);
         gameInfoText.setForeground(Color.WHITE);
         gameInfoText.setEditable(false);
@@ -221,11 +214,9 @@ public class GameRun extends JFrame
 		
 		
 		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
-<<<<<<< HEAD
-=======
+
 		player[playerNum].money = player[playerNum].money + changeMoney;
 		changeMoney = 0;
->>>>>>> origin/Gary
 		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  player[playerNum].money + "\n");
 	}
   
