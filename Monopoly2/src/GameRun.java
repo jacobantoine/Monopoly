@@ -170,11 +170,7 @@ public class GameRun extends JFrame
 		}
 		//IF the player is in jail, didn't not roll doubles, and it has not been three turns in jail,
 		//The player stays in jail, and the time in jail counter is incremented.
-<<<<<<< HEAD
 		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 1))
-=======
-		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 2))
->>>>>>> origin/Jacob's-Branch
 		{
 			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
 					 " is in jail and cannot move.\n");
@@ -191,11 +187,7 @@ public class GameRun extends JFrame
 		}
 		//If the player had to wait three turns to get out of jail, let the player out,
 		//Reset the jail time counter.
-<<<<<<< HEAD
 		else if (player[playerNum].jailTime == 1)
-=======
-		else if (player[playerNum].jailTime == 2)
->>>>>>> origin/Jacob's-Branch
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
@@ -219,11 +211,8 @@ public class GameRun extends JFrame
 		
 		
 		boardSpaces.checkLocation(player[playerNum].location, player[playerNum]);
-<<<<<<< HEAD
 		player[playerNum].money = player[playerNum].money + changeMoney;
 		changeMoney = 0;
-=======
->>>>>>> origin/Jacob's-Branch
 		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  player[playerNum].money + "\n");
 	}
   

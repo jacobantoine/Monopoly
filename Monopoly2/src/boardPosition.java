@@ -16,12 +16,8 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-<<<<<<< HEAD
+
 import javax.swing.JTextField;
-=======
-import javax.swing.JRootPane;
-import javax.swing.WindowConstants;
->>>>>>> origin/Jacob's-Branch
 
 import jtesting.Player;
 
@@ -45,14 +41,12 @@ public class boardPosition extends JFrame
 	private JRadioButton rdbtnPay, rdbtnPay_1;
 	private ActionListener listener;
 	private static Dialog dialog;
-<<<<<<< HEAD
 	
 	
 	private JPanel jailPanel;
 	private JRadioButton rdbtnPayYes, rdbtnPayNo;
 	private JTextField txtPayTo;
-=======
->>>>>>> origin/Jacob's-Branch
+
 	
 	boardPosition () throws IOException
 	{
@@ -72,11 +66,8 @@ public class boardPosition extends JFrame
 	protected void setArray () throws IOException 
 	   {
 			// Open the file
-<<<<<<< HEAD
 	       	FileInputStream fstream = new FileInputStream("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\position");
-=======
-	       	FileInputStream fstream = new FileInputStream("C:\\Users\\jantoine\\workspace\\Monopoly2\\src\\position");
->>>>>>> origin/Jacob's-Branch
+
 	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	       	String line;
 	       	
@@ -115,15 +106,9 @@ public class boardPosition extends JFrame
 		switch (location)
 		{
 			case 4: incomeTax(currentPlayer); 
-<<<<<<< HEAD
 					break;
 			case 30: Jail(currentPlayer);
 					break;
-=======
-					break;
-			case 30: Jail(currentPlayer);
-					break;
->>>>>>> origin/Jacob's-Branch
 			case 38: luxuryTax(currentPlayer);
 		}
 	}
@@ -131,7 +116,6 @@ public class boardPosition extends JFrame
 	//This function sends you to jail and sets the variables likewise
 	public void Jail(Player currentPlayer)
 	{
-<<<<<<< HEAD
 		listener = new ClickJailOptions();
 		
 		temp = new Player(currentPlayer.player);
@@ -163,34 +147,6 @@ public class boardPosition extends JFrame
 		dialog.add(jailPanel);
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-=======
-		currentPlayer.location=10;
-		currentPlayer.inJail=true;
-		currentPlayer.doubles=0;
-		GameRun.gameInfoText.append("Player " + currentPlayer.player + " went to jail.\n");
->>>>>>> origin/Jacob's-Branch
 	}
 	
 	//Function to make the income tax panel to appear
@@ -217,12 +173,7 @@ public class boardPosition extends JFrame
 		panel.add(rdbtnPay);
 		panel.add(rdbtnPay_1);
 		
-<<<<<<< HEAD
-		dialog = new JDialog(this , "Income Tax" , true);
-		dialog.add(panel);
-		dialog.setSize(200, 100);                    
-		dialog.setVisible(true);
-=======
+
 
 		dialog = new JDialog(this, true);
 		dialog.setUndecorated(true);
@@ -231,7 +182,6 @@ public class boardPosition extends JFrame
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
 
->>>>>>> origin/Jacob's-Branch
 		
 		
 	}
@@ -264,7 +214,6 @@ public class boardPosition extends JFrame
 				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 
 						(int)(temp.money*.1) + " in taxes.\n");
 				GameRun.changeMoney = (int) (-temp.money * .1);
-<<<<<<< HEAD
 			}
 			if (rdbtnPay_1.isSelected())
 			{
@@ -295,22 +244,10 @@ public class boardPosition extends JFrame
 				temp.jailTime = -1;
 				GameRun.gameInfoText.append("Player " + temp.player + " went to jail.\n");
 			}
-			/*currentPlayer.location=10;
-			currentPlayer.inJail=true;
-			currentPlayer.doubles=0;
-			GameRun.gameInfoText.append("Player " + currentPlayer.player + " went to jail.\n");*/
 			dispose();
 		
-=======
-			}
-			if (rdbtnPay_1.isSelected())
-			{
-				GameRun.gameInfoText.append("Player " + temp.player + " paid $" + 200 + 
-						" in taxes.\n");
-				GameRun.changeMoney = -200;
-			}
-			dispose();
->>>>>>> origin/Jacob's-Branch
+
+			
 		}
 	}
 	
