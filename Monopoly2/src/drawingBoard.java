@@ -50,10 +50,10 @@ public class drawingBoard extends JComponent
 		   {
 			   	imageUrl = new URL(Monopoly_LINK);
 			   	monopolyImage = ImageIO.read(imageUrl);
-			   	catImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\CatPiece.jpg"));
-			   	hatImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Hat.png"));
-			   	ironImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Iron.jpg"));
-			   	shoeImage = ImageIO.read(new File("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\Shoe.jpg"));
+			   	catImage = ImageIO.read(new File("C:\\CatPiece.png"));
+			   	hatImage = ImageIO.read(new File("C:\\Hat.png"));
+			   	ironImage = ImageIO.read(new File("C:\\Iron.png"));
+			   	shoeImage = ImageIO.read(new File("C:\\Shoe.png"));
 		   } 
 		   catch (MalformedURLException e) 
 		   {
@@ -76,10 +76,10 @@ public class drawingBoard extends JComponent
 	    if (monopolyImage != null) 
 	    {	
 	    		g.drawImage(monopolyImage, 1, 7, 700, 700, this);
-			    g.drawImage(catImage, xComponent, yComponent, 35, 35, this);
-			    g.drawImage(hatImage, x2Component + 13, y2Component, 35, 35, this);
-			    g.drawImage(ironImage, x3Component - 10, y3Component + 8, 35, 35, this);
-			    g.drawImage(shoeImage, x4Component , y4Component - 8 , 35, 35, this);
+			    g.drawImage(catImage, xComponent, yComponent, 40, 40, this);
+			    g.drawImage(hatImage, x2Component + 13, y2Component, 40, 40, this);
+			    g.drawImage(ironImage, x3Component - 10, y3Component + 8, 40, 40, this);
+			    g.drawImage(shoeImage, x4Component , y4Component - 8 , 40, 40, this);
 		    
 	    }
     }

@@ -66,7 +66,7 @@ public class boardPosition extends JFrame
 	protected void setArray () throws IOException 
 	   {
 			// Open the file
-	       	FileInputStream fstream = new FileInputStream("C:\\Users\\Gary Danovich\\Documents\\GitHub\\Monopoly\\Monopoly2\\src\\position");
+	       	FileInputStream fstream = new FileInputStream("C:\\position.txt");
 
 	       	BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 	       	String line;
@@ -107,46 +107,54 @@ public class boardPosition extends JFrame
 		{
 			case 4: incomeTax(currentPlayer); 
 					break;
-			case 30: Jail(currentPlayer);
+			case 30: GotoJail(currentPlayer);
 					break;
 			case 38: luxuryTax(currentPlayer);
 		}
 	}
 	
-	//This function sends you to jail and sets the variables likewise
-	public void Jail(Player currentPlayer)
+	public void GotoJail(Player currentPlayer)
 	{
-		listener = new ClickJailOptions();
-		
-		temp = new Player(currentPlayer.player);
-		temp = currentPlayer;
-		
-		jailPanel = new JPanel();
-		getContentPane().add(jailPanel, BorderLayout.CENTER);
-		
-		txtPayTo = new JTextField();
-		txtPayTo.setEditable(false);
-		txtPayTo.setText("Pay $50 to get out of jail");
-		jailPanel.add(txtPayTo);
-		txtPayTo.setColumns(15);
-		
-		rdbtnPayYes = new JRadioButton("Yes");
-		rdbtnPayYes.addActionListener(listener);
-		
-		rdbtnPayNo = new JRadioButton("No");
-		rdbtnPayNo.addActionListener(listener);
-		
-		ButtonGroup jailGroup = new ButtonGroup();
-		jailGroup.add(rdbtnPayYes);
-		jailGroup.add(rdbtnPayNo);
-		jailGroup.clearSelection();
-		jailPanel.add(rdbtnPayYes);
-		jailPanel.add(rdbtnPayNo);
-		
-		dialog = new JDialog(this , "Go To Jail?" , true);
-		dialog.add(jailPanel);
-		dialog.setSize(200, 100);                    
-		dialog.setVisible(true);
+		GameRun.gameInfoText.append("Poor player " + currentPlayer.player + " was beaten\n");
+		GameRun.gameInfoText.append(" by the police and put in jail.\n");
+		currentPlayer.inJail=true;
+		currentPlayer.doubles=0;
+		currentPlayer.location=10;
+	}
+	//This function sends you to jail and sets the variables likewise
+	public void FreeJail(Player currentPlayer)
+	{
+			listener = new ClickJailOptions();
+			
+			temp = new Player(currentPlayer.player);
+			temp = currentPlayer;
+			
+			jailPanel = new JPanel();
+			getContentPane().add(jailPanel, BorderLayout.CENTER);
+			
+			txtPayTo = new JTextField();
+			txtPayTo.setEditable(false);
+			txtPayTo.setText("Pay $50 to get out of jail");
+			jailPanel.add(txtPayTo);
+			txtPayTo.setColumns(15);
+			
+			rdbtnPayYes = new JRadioButton("Yes");
+			rdbtnPayYes.addActionListener(listener);
+			
+			rdbtnPayNo = new JRadioButton("No");
+			rdbtnPayNo.addActionListener(listener);
+			
+			ButtonGroup jailGroup = new ButtonGroup();
+			jailGroup.add(rdbtnPayYes);
+			jailGroup.add(rdbtnPayNo);
+			jailGroup.clearSelection();
+			jailPanel.add(rdbtnPayYes);
+			jailPanel.add(rdbtnPayNo);
+			
+			dialog = new JDialog(this , "Go To Jail?" , true);
+			dialog.add(jailPanel);
+			dialog.setSize(200, 100);                    
+			dialog.setVisible(true);
 	}
 	
 	//Function to make the income tax panel to appear
@@ -179,9 +187,6 @@ public class boardPosition extends JFrame
 		dialog.add(panel);
 		dialog.setSize(200, 100);                    
 		dialog.setVisible(true);
-
-		
-		
 	}
 
 	//Function to pay your luxury tax
@@ -189,7 +194,8 @@ public class boardPosition extends JFrame
 	{
 		if(currentPlayer.money>75)
 		{
-		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 + " in taxes.\n");
+		GameRun.gameInfoText.append("Player " + currentPlayer.player + " paid $" + 75 +
+				" in taxes.\n");
 		currentPlayer.money = currentPlayer.money-75;
 		}
 		else
@@ -229,19 +235,21 @@ public class boardPosition extends JFrame
 		public void actionPerformed(ActionEvent event)
 		{
 			
-			if (rdbtnPayYes.isSelected())
+			if (rdbtnPayYes.isSelected())    //If yes reset to out of jail
 			{
-				GameRun.changeMoney = -50;
-				temp.location = 30;
-				GameRun.gameInfoText.append("Player " + temp.player + " did not go to jail.\n");
-			}
-			if (rdbtnPayNo.isSelected())
-			{
-				temp.location = 10;
-				temp.inJail = true;
-				temp.doubles = 0;
-				temp.jailTime = -1;
-				GameRun.gameInfoText.append("Player " + temp.player + " went to jail.\n");
+				if(temp.money>50)            //Test if sufficient money
+				{
+					temp.inJail = false;
+					temp.jailTime=0;
+					temp.money=temp.money-50;
+					GameRun.gameInfoText.append("Player " + temp.player + " paid $50 and is out of "
+							+ "jail!\n");
+				}
+				else
+				{
+					GameRun.gameInfoText.append("Player " + temp.player + 
+							"does not have enough money! " + temp.money + "\n");
+				}
 			}
 			dispose();
 		}
