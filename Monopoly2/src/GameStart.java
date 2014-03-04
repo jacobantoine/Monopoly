@@ -19,7 +19,7 @@ public class GameStart
 		 GameRun board = new GameRun();              //Makes the board
 		 board.setTitle("Monopoly");
 	     board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    //Sets its size and display to true
-	     board.setSize(1100, 750);
+	     board.setSize(965, 750);
 	     board.setLocationByPlatform(true);
 	     board.setVisible(true);
 	}
