@@ -118,9 +118,6 @@ public class GameRun extends JFrame
         pack();
     }
 	
-	//Makes the array of property coordinates to move the image to
-	
-	
     
     /**
      * This rolls the dice.
@@ -141,8 +138,6 @@ public class GameRun extends JFrame
 		player[playerNum].addCash(changeMoney);
 		changeMoney = 0;
 		
-		//Player and tracker updated for the next players roll.
-		playerNum = tracker;
 		
 		if (die1 == die2)
 			player[playerNum].doubles++;
@@ -173,7 +168,7 @@ public class GameRun extends JFrame
 		}
 		//IF the player is in jail, didn't not roll doubles, and it has not been three turns in jail,
 		//The player stays in jail, and the time in jail counter is incremented.
-		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 1))
+		else if ((player[playerNum].inJail == true) && (die1 != die2) && (player[playerNum].jailTime != 2))
 		{
 			 GameRun.gameInfoText.append("Player " + player[playerNum].player + 
 					 " is in jail and cannot move.\n");
@@ -187,15 +182,31 @@ public class GameRun extends JFrame
 			player[playerNum].jailTime = 0;
 			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
 					 " rolled doubles and is free!\n");
+			if (tracker == 3)                    //Move tracker to next person so no doubles
+				tracker = 0;                     // 2x out of jail.
+			else
+				tracker = tracker + 1;
 		}
 		//If the player had to wait three turns to get out of jail, let the player out,
 		//Reset the jail time counter.
-		else if (player[playerNum].jailTime == 1)
+		else if (player[playerNum].jailTime == 2)
 		{
 			player[playerNum].inJail = false;
 			player[playerNum].jailTime = 0;
 			GameRun.gameInfoText.append("Player " + player[playerNum].player + 
-					 " time is up and is free to move their next roll!\n");
+					 " has to pay $50 to get free\n");
+			if(player[playerNum].money>50)
+			{
+				player[playerNum].money=player[playerNum].money-50;
+				player[playerNum].inJail = false;
+				player[playerNum].jailTime = 0;
+			}
+			else
+			{
+				gameInfoText.append("Player " + player[playerNum].player + 
+						 " doesn't have enough money.\n");
+				gameInfoText.append("They are in jail forever!\n");
+			}
 		}
 		//If the player gets to move freely, without the hindrances of prison.
 		else	
@@ -217,7 +228,8 @@ public class GameRun extends JFrame
 
 		player[playerNum].money = player[playerNum].money + changeMoney;
 		changeMoney = 0;
-		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  player[playerNum].money + "\n");
+		GameRun.gameInfoText.append("Player " + player[playerNum].player + " money " +  
+				player[playerNum].money + "\n");
 	}
   
     /**
@@ -231,9 +243,15 @@ public class GameRun extends JFrame
 		{
 			getMoves();
 			
-			component.appendXY(boardSpaces.positionArray[(player[playerNum].location)].xCoordinate, boardSpaces.positionArray[(player[playerNum].location)].yCoordinate, playerNum);
+			component.appendXY(boardSpaces.positionArray[(player[playerNum].location)].
+					xCoordinate, boardSpaces.positionArray[(player[playerNum].location)].
+						yCoordinate, playerNum);
 			player[playerNum].setLocation((player[playerNum].location), playerNum);
-			
+			playerNum = tracker;
+	    	if(player[playerNum].inJail==true)       //test to see if player is in jail.
+	    	{
+	    		boardSpaces.FreeJail(player[playerNum]);
+	    	}
 		}
 	}
     
